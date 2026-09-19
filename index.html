@@ -1,56 +1,84 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verificador de Elegibilidade</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verificador Macabro de Vagas</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="cemiterio-container">
-        <h2>Verificador de Elegibilidade</h2>
-        
-        <form id="vagaForm">
-            <div class="campo">
-                <label for="nome">Nome do Candidato</label>
-                <input type="text" id="nome" required placeholder="Digite seu nome">
-            </div>
+  <!-- Canvas para Animação do Cemitério e Névoa -->
+  <canvas id="bg-canvas"></canvas>
 
-            <div class="campo">
-                <label for="idade">Idade (anos)</label>
-                <input type="number" id="idade" required placeholder="Ex: 20">
-            </div>
+  <!-- Cursor Personalizado (Cabeça de Zumbi) -->
+  <div id="zombie-cursor">
+    <svg viewBox="0 0 100 100" width="48" height="48">
+      <ellipse cx="50" cy="55" rx="35" ry="40" fill="#2d4a27" stroke="#122010" stroke-width="3"/>
+      <ellipse cx="33" cy="45" rx="9" ry="9" fill="#111" />
+      <circle cx="33" cy="45" r="4" fill="#00ff44" />
+      <ellipse cx="67" cy="45" rx="8" ry="8" fill="#111" />
+      <circle cx="67" cy="45" r="3" fill="#ff0000" stroke="#fff" stroke-width="1"/>
+      <polygon points="50,50 45,62 53,62" fill="#182c14"/>
+      <path d="M 30,72 Q 50,85 70,72" fill="none" stroke="#111" stroke-width="4"/>
+      <path d="M 33,72 L 35,78 L 39,72" fill="#fff"/>
+      <path d="M 60,72 L 63,77 L 66,72" fill="#fff"/>
+      <path d="M 25,25 Q 35,35 20,45" fill="none" stroke="#900" stroke-width="3"/>
+      <path d="M 55,18 L 65,30" fill="none" stroke="#800" stroke-width="2"/>
+    </svg>
+  </div>
 
-            <div class="campo">
-                <label for="altura">Altura (metros)</label>
-                <input type="text" id="altura" required placeholder="Ex: 1.75">
-            </div>
+  <!-- Container Principal -->
+  <main class="container">
+    <header class="header">
+      <span class="badge">PROCESSO SELETIVO</span>
+      <h1>Portal de Candidatura</h1>
+      <p>Insira seus dados para verificar sua elegibilidade</p>
+    </header>
 
-            <button type="submit">Verificar Vaga</button>
-        </form>
-    </div>
+    <form id="candidate-form">
+      <div class="form-group">
+        <label for="nome">Nome Completo</label>
+        <input type="text" id="nome" placeholder="Digite seu nome..." required autocomplete="off">
+      </div>
 
-    <!-- POP-UP MODAL DE RESPOSTA -->
-    <div id="popupModal" class="modal-overlay hidden">
-        <div class="modal-card">
-            <h3 id="modalTitle"></h3>
-            
-            <!-- MENSAGEM DO CRITÉRIO -->
-            <p id="modalMessage"></p>
-            
-            <div class="detalhes">
-                <p><strong>Nome:</strong> <span id="resNome"></span></p>
-                <p><strong>Idade:</strong> <span id="resIdade"></span></p>
-                <p><strong>Altura:</strong> <span id="resAltura"></span></p>
-            </div>
-
-            <!-- BOTÃO OK PARA FECHAR -->
-            <button onclick="fecharModal()" class="btn-ok">OK</button>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="idade">Idade (Anos)</label>
+          <input type="number" id="idade" min="1" max="120" placeholder="Ex: 20" required>
         </div>
-    </div>
 
-    <script src="script.js"></script>
+        <div class="form-group">
+          <label for="altura">Altura (Metros)</label>
+          <input type="number" id="altura" step="0.01" min="0.5" max="2.5" placeholder="Ex: 1.75" required>
+        </div>
+      </div>
+
+      <button type="submit" id="btn-submit">VERIFICAR APTIDÃO</button>
+    </form>
+  </main>
+
+  <!-- Modal Normal (Sucesso / Aprovado) -->
+  <div id="modal-success" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-icon success-icon">✓</div>
+      <h2>Parabéns!</h2>
+      <p id="success-message">Você atende aos critérios do processo seletivo.</p>
+      <button class="btn-close" id="btn-close-success">Prosseguir</button>
+    </div>
+  </div>
+
+  <!-- Modal Jumpscare (Reprovado / Sangue) -->
+  <div id="jumpscare-overlay" class="jumpscare-overlay hidden">
+    <div class="blood-drips"></div>
+    <div class="monster-face">💀</div>
+    <div class="jumpscare-box">
+      <h1 class="jumpscare-title">INAPTO!</h1>
+      <p id="jumpscare-text">Infelizmente você não é apto à vaga</p>
+      <button class="btn-jumpscare-ok" id="btn-close-jumpscare">ENTENDIDO / OK</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

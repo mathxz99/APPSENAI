@@ -1,105 +1,292 @@
-/* style.css - Tema Mórbido Cemitério */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: none; /* Usa o cursor de zumbi personalizado */
 }
 
 body {
-    background-color: #030304;
-    color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+  background-color: #030508;
+  color: #f0f0f0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
 }
 
-.cemiterio-container {
-    background: rgba(10, 10, 15, 0.9);
-    border: 1px solid #ff003c;
-    padding: 35px;
-    border-radius: 20px;
-    width: 100%;
-    max-width: 420px;
-    box-shadow: 0 0 40px rgba(255, 0, 60, 0.3);
+#bg-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
-h2 {
-    margin-bottom: 25px;
-    text-align: center;
-    color: #ff003c;
-    text-transform: uppercase;
+/* Cursor Personalizado Zombie Head */
+#zombie-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.05s linear;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 68, 0.4));
 }
 
-.campo {
-    margin-bottom: 20px;
+/* Container do Formulário */
+.container {
+  position: relative;
+  z-index: 10;
+  width: 90%;
+  max-width: 480px;
+  background: rgba(10, 15, 20, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 0, 60, 0.2);
+  border-radius: 12px;
+  padding: 35px 30px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.badge {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #ff3333;
+  text-transform: uppercase;
+  background: rgba(255, 0, 0, 0.15);
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+.header h1 {
+  font-size: 24px;
+  margin: 10px 0 5px 0;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.header p {
+  font-size: 13px;
+  color: #aaa;
+}
+
+/* Campos de Entrada */
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
 }
 
 label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 12px;
-    text-transform: uppercase;
-    color: #a1a1aa;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #ccc;
+  margin-bottom: 8px;
 }
 
 input {
-    width: 100%;
-    padding: 12px;
-    background: #0a0a0f;
-    border: 1px solid rgba(255, 0, 60, 0.4);
-    border-radius: 10px;
-    color: #fff;
-    font-size: 14px;
+  background: rgba(20, 25, 32, 0.8);
+  border: 1fr solid rgba(255, 255, 255, 0.2);
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 12px 14px;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
 }
 
 input:focus {
-    border-color: #ff003c;
-    box-shadow: 0 0 15px rgba(255, 0, 60, 0.5);
-    outline: none;
+  border-color: #ff3333;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
 }
 
-button {
-    width: 100%;
-    padding: 14px;
-    background: linear-gradient(135deg, #a80000, #330000);
-    color: #fff;
-    border: 1px solid #ff003c;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: 0.3s;
+button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #b30000, #660000);
+  border: 1px solid #ff3333;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  border-radius: 6px;
+  margin-top: 10px;
+  transition: all 0.3s ease;
 }
 
-button:hover {
-    background: #ff003c;
-    box-shadow: 0 0 25px #ff003c;
+button[type="submit"]:hover {
+  background: linear-gradient(135deg, #ff0000, #990000);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+  transform: translateY(-2px);
 }
 
-/* Modal Pop-Up */
+/* System Modals */
+.hidden {
+  display: none !important;
+}
+
 .modal-overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.85);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
 }
 
 .modal-card {
-    background: #0a0a0f;
-    border: 1px solid #ff003c;
-    padding: 30px;
-    border-radius: 20px;
-    text-align: center;
-    max-width: 380px;
-    width: 90%;
+  background: #0d1117;
+  border: 1px solid #00ff66;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 0 30px rgba(0, 255, 102, 0.3);
 }
 
-.hidden {
-    display: none;
+.success-icon {
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 255, 102, 0.2);
+  border: 2px solid #00ff66;
+  color: #00ff66;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin: 0 auto 15px auto;
+}
+
+.modal-card h2 {
+  color: #00ff66;
+  margin-bottom: 10px;
+}
+
+.modal-card p {
+  color: #ddd;
+  font-size: 14px;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.btn-close {
+  background: #00ff66;
+  color: #000;
+  border: none;
+  padding: 10px 25px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+/* Jumpscare Screen */
+.jumpscare-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: jumpscareFlash 0.15s infinite alternate;
+}
+
+.monster-face {
+  font-size: 120px;
+  animation: shake 0.1s infinite;
+  filter: drop-shadow(0 0 30px #ff0000);
+}
+
+.jumpscare-box {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.85);
+  border: 2px solid #ff0000;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 50px #ff0000;
+  margin-top: 20px;
+}
+
+.jumpscare-title {
+  color: #ff0000;
+  font-size: 36px;
+  text-shadow: 0 0 10px #ff0000;
+  margin-bottom: 10px;
+}
+
+#jumpscare-text {
+  color: #ffffff;
+  font-size: 18px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.btn-jumpscare-ok {
+  background: #ff0000;
+  color: #ffffff;
+  border: none;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border-radius: 4px;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+}
+
+.btn-jumpscare-ok:hover {
+  background: #cc0000;
+}
+
+/* Respingos de sangue estáticos */
+.blood-drips {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(139,0,0,0.6) 0%, rgba(0,0,0,0.9) 80%);
+  pointer-events: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes jumpscareFlash {
+  0% { background-color: #000; }
+  100% { background-color: #300; }
+}
+
+@keyframes shake {
+  0% { transform: translate(2px, 2px) rotate(0deg); }
+  25% { transform: translate(-2px, -3px) rotate(-2deg); }
+  50% { transform: translate(-4px, 1px) rotate(2deg); }
+  75% { transform: translate(3px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
