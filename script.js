@@ -1,4 +1,4 @@
-// script.js - Lógica de Elegibilidade
+// script.js - Validação de Elegibilidade
 
 document.getElementById('vagaForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -6,11 +6,11 @@ document.getElementById('vagaForm').addEventListener('submit', function(e) {
     const nome = document.getElementById('nome').value.trim();
     const idade = parseInt(document.getElementById('idade').value);
     
-    // Tratamento para aceitar vírgula ou ponto
+    // Converte vírgula para ponto caso o usuário digite "1,75"
     let alturaInput = document.getElementById('altura').value.replace(',', '.');
     const altura = parseFloat(alturaInput);
 
-    // CRITÉRIO: Altura >= 1.70 e Idade >= 18 - comentário testeg
+    // CRITÉRIO EXAGIDO: Altura >= 1.70 E Idade >= 18
     const eApto = (altura >= 1.70) && (idade >= 18);
 
     const modal = document.getElementById('popupModal');
@@ -22,12 +22,10 @@ document.getElementById('vagaForm').addEventListener('submit', function(e) {
     document.getElementById('resAltura').innerText = altura.toFixed(2) + " m";
 
     if (eApto) {
-        modalTitle.innerText = "Parabéns!";
-        modalTitle.style.color = "#ffffff";
+        modalTitle.innerText = "Aprovado!";
         modalMessage.innerText = "Parabéns! Você pode prosseguir no processo para a vaga!";
     } else {
-        modalTitle.innerText = "Infelizmente";
-        modalTitle.style.color = "#ff003c";
+        modalTitle.innerText = "Inapto";
         modalMessage.innerText = "Infelizmente você não é apto à vaga";
     }
 
