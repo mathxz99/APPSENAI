@@ -10,7 +10,7 @@ document.getElementById('vagaForm').addEventListener('submit', function(e) {
     let alturaInput = document.getElementById('altura').value.replace(',', '.');
     const altura = parseFloat(alturaInput);
 
-    // CRITÉRIO: Altura >= 1.70 e Idade >= 18
+    // CRITÉRIO: Altura >= 1.70 e Idade >= 18 - comentário testeg
     const eApto = (altura >= 1.70) && (idade >= 18);
 
     const modal = document.getElementById('popupModal');
